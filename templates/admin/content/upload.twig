@@ -1,0 +1,99 @@
+{% extends 'page.twig' %}
+{% set requirements = {
+	'lib/knockout': 'ko',
+	'lib/resumable': 'Resumable',
+	'videoeditor/UploadedVideo': 'UploadedVideo',
+	'videoeditor/kobind_yellowFade': 'yellowFade',
+	'videoeditor/kobind_asyncSubmit': 'asyncSubmit',
+} %}
+{% use 'requirejs.twig' with requirements %}
+{% block title %}
+	Upload Videos
+{% endblock %}
+{% block head %}
+	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="/static/admin/content/upload.css"/>
+{% endblock %}
+{% block script %}
+	var r = new Resumable({
+		target: 'uploadChunk.php',
+	});
+	r.assignBrowse(document.getElementById('browseButton'));
+	r.assignDrop(document.getElementById('dropTarget'));
+
+	r.on('catchAll', function(event, args) {
+		console.log(event, args);
+	});
+
+	videos = ko.observableArray([]); // TODO load in existing videos
+	{% for file in uploaded %}
+		videos.push(
+			UploadedVideo.createFromDetails('{{file|e('js')}}','{{file|e('js')}}')
+		);
+
+	{% endfor %}
+
+	r.on('filesAdded', function(array){
+		array.forEach(function(file) {
+			videos.push(UploadedVideo.createFromUpload(file));
+		});
+		r.upload();
+	});
+
+	r.on('fileProgress', function(file) {
+		UploadedVideo.all[file.uniqueIdentifier].progress(file.progress());
+	});
+
+	r.on('fileSuccess', function(file) {
+		console.log('success', file);
+		UploadedVideo.all[file.uniqueIdentifier].complete(true);
+	});
+
+	ko.applyBindings(videos, document.getElementById('filesArea'));
+{% endblock %}
+{% block body %}
+	{{ parent() }}
+	<div id="dropTarget"><div id="dropTargetText">Drop files here
+	<div> - or - </div>
+	<div><a href="javascript:void(0)" id="browseButton">Select files</a></div>
+	</div>
+	</div>
+
+	<div id="filesArea" data-bind="foreach:$root">
+		<!-- ko if: status() == 'active' -->
+			<div class="uploadedFile">
+				<div>
+					<span class="fileName" data-bind="text:name"></span>
+					<span class="progressBar" data-bind="style: {width: progress()*100+'%'}, yellowFade: complete"></span>
+					<a class="retryButton"  href="javascript:void(0)" data-bind="visible: progTimedOut, event: {click:retry}">Retry</a>
+					<a class="cancelButton" href="javascript:void(0)" data-bind="asyncSubmit:cancel,attr:{href:'cancel.php?'+((file==null)?('fileId='+id):('uniqId='+file.uniqueIdentifier))}">Cancel</a>
+				</div>
+				<form method="POST" action="/admin/content/edit/save?new=video&return=ok" data-bind="asyncSubmit:function(){status('success')}">
+					<input type="hidden" name="*uploadedFileName" data-bind="value:name"/>
+					<div data-bind='with: video'>
+						{% include 'videoeditor.twig' with {'video':{'is_series':false}, id: 'new', return: 'callback'} %}
+					</div>
+					<div style="margin-top:1em;" data-bind="visible:complete">
+						<input type="submit" value="Save" class="btn btn-primary"/>
+					</div>
+				</form>
+			</div>
+		<!-- /ko -->
+		<!-- ko if: status() == 'cancelled' -->
+			<div class="alert alert-info" role="alert">
+				<strong>Upload cancelled: </strong><span data-bind="text:name"></span>
+				<a class="glyphicon glyphicon-remove" style="float:right" href="javascript:void" data-bind="event:{click:function(){status('hidden')}}"></a>
+			</div>
+		<!-- /ko -->
+		<!-- ko if: status() == 'success' -->
+			<div class="alert alert-success" role="alert">
+				<strong>Upload successful: </strong><span data-bind="text:name"></span>
+				<a class="glyphicon glyphicon-remove" style="float:right" href="javascript:void" data-bind="event:{click:function(){status('hidden')}}"></a>
+			</div>
+		<!-- /ko -->
+	</div>
+
+	<div id="serieseditor-content" style="display:none">
+		{% include 'videoeditor.twig' with {'video':{'is_series':true}, id: 'new', return: 'callback'} %}
+	</div>
+{% endblock %}

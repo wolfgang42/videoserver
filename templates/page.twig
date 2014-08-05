@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html><head><title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/global.css">
+{% block head %}{% endblock %}
+</head><body>
+{% block bodytop %}{% endblock %}
+<h1>{{ block('title') }}</h1>
+{% block body %}{% endblock %}
+</body></html>

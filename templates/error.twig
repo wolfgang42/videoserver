@@ -1,0 +1,9 @@
+{% extends 'page.twig' %}
+{% block title %}
+	Error: {{error.short}}
+{% endblock %}
+{% block body %}
+	<h1>{{error.short}}</h1>
+	<p>{{error.message}}</p>
+	{# TODO suggestions etc? #}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'directory.twig' %}
+{% block bodytop %}
+	{{ parent() }}
+	<div class="page-adminlinks"><a href="/admin/content/upload">Upload Videos</a></div>
+{% endblock %}
+
+{% block file %}
+	<li id="video:{{file.id}}" class="type-{{file.type}} list-group-item">
+		<span class="glyphicon glyphicon-{% if file.type == 'series' %}folder-open{%else%}film{%endif%}"></span>
+		<a href="/library/{{file.id}}">{{file.name}}</a>
+		<span class="video-adminlinks">
+			<a href="/admin/content/edit/?id={{file.id}}">Edit</a>
+			<a href="/admin/content/delete?id={{file.id}}">Delete</a>
+		</span>
+	</li>
+{% endblock %}

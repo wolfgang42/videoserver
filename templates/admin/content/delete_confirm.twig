@@ -1,0 +1,25 @@
+{% extends 'page.twig' %}
+{% block title %}
+	Delete {% if is_series %}series{% else %}video{% endif %}?
+{% endblock %}
+{% block body %}
+<form method="POST" class="panel panel-danger" style="margin-left:1em;margin-right:1em;">
+<div style="font-size:150%" class="panel-heading"><b class="panel-title">{{title}}</b></div>
+<div class="panel-body">
+{% if more_delete|length > 0 %}
+<div>The following videos will also be deleted:<ul>
+{%for deletee_id, deletee_title in more_delete %}
+<li style="font-weight:bold">{{deletee_title}}</li>
+{% endfor %}
+</li></div>
+{% endif %}
+<div>This action cannot be undone.</div>
+<div>
+	<a href="javascript:history.back()" id="cancelbutton" class="btn btn-default">Cancel</a>
+	<input type="submit" value="Delete" class="btn btn-danger" style="margin-left: 1.5em;"/>
+	<input type="hidden" name="confirm" value="Y"/>
+</div>
+</div>
+</form>
+<script>document.getElementById('cancelbutton').focus();</script>
+{% endblock %}

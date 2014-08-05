@@ -1,0 +1,20 @@
+{% extends 'page.twig' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block head %}
+	<script src="/static/lib/mediaelement/jquery.js"></script>
+	<script src="/static/lib/mediaelement/mediaelement-and-player.min.js"></script>
+	<link rel="stylesheet" href="/static/lib/mediaelement/mediaelementplayer.css" />
+{% endblock %}
+
+{% block body %}
+	<video{% if poster is defined %} poster="{{poster}}"{% endif %}>
+	{% for source in sources %}
+		<source src="/content/{{source.filename}}" type="{{source.type}}"/>
+	{% endfor %}</video>
+	<script>
+		$('video,audio').mediaelementplayer({enablePluginDebug: true, pluginPath: '/static/mediaelement/'});
+	</script>
+	{# <!-- TODO metadata --> #}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% block head %}
+<script src="/static/lib/require.js"></script>
+<script>
+	require(['/static/videoeditor/config'], function (common) {
+		require([
+				{% for name, var in requirements %}
+					'{{name|e('js')}}',
+				{% endfor %}
+			], function (
+				{% for name, var in requirements %}
+					{{var}}{% if not loop.last %},{% endif %}
+				{% endfor %}
+		) {
+			{% block script %}{% endblock %}
+			$(document.getElementById("splashoverlay")).fadeOut(250);
+		})
+	});
+</script>
+<style>
+.splashoverlay {
+  background-color: white;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 5000;
+  background-image: url(/static/large_preloader.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="splashoverlay" id="splashoverlay"></div>
+<noscript>Error: This page will not work if you have JavaScript turned off.</noscript>
+{% endblock %}

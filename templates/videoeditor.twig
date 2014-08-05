@@ -1,0 +1,61 @@
+<style>
+td {padding: 0.1em;}
+</style>
+
+<table id="metadataTable">
+	<tbody>
+		<tr>
+			<td><label for="*title">Title</label></td>
+			<td><input data-bind="value: title" type="text" name="*title" required autocomplete="off"/></td>
+		</tr>
+		{% if not video.is_series %}
+			<tr>
+				<td>Series</td>
+				<td>
+					<div class="btn-group">
+						<button type="button" data-toggle="dropdown" class="btn btn-sm dropdown-toggle" onclick="var self=this;setTimeout(function(){var e=self.form.elements['*seriesFilter'];e.focus();e.setSelectionRange(0,e.value.length)},0)">
+							<span data-bind="text:series().name"></span>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" style="padding-top: 0;">
+							<li onclick="event.cancelBubble=true;"><div class="left-inner-addon">
+								<i class="glyphicon glyphicon-search"></i>
+								<input type="text" class="form-control" placeholder="Filter" name="*seriesFilter" autocomplete="off"
+									data-bind="event: { input: function(model, event){filterSeriesList(event.target.value);} }" />
+							</div></li>
+							<!-- ko foreach: seriesList -->
+								<li data-bind="css: { active: name == $parent.series().name }"><a href="javascript:void(0)" data-bind="text: name, click:$parent.setSeries"></a></li>
+							<!-- /ko -->
+							<li class="divider"></li>
+							<li><a href="javascript:void(0)" data-bind="event:{click:function(){addNewSeries($parent.video);}}">New...</a></li>
+						</ul>
+					</div>
+					<input type="hidden" name="*series" data-bind="attr {value: series().id}"/>
+				</td>
+			</tr>
+		{% endif %}
+	</tbody>
+	<tbody data-bind="foreach: metadata">
+		<tr>
+			<td data-bind="text: key"></td>
+			<td><input data-bind="value: value, typeahead: key, attr: {name:key}" required autocomplete="off"/></td>
+			<td><span class="btn btn-xs btn-danger" data-bind="click: $parent.deleteMetadatum"><span class="glyphicon glyphicon-trash"></span></span></td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr><td>
+			<div class="btn-group">
+				<button type="button" data-toggle="dropdown" class="btn btn-sm dropdown-toggle">
+					<span class="glyphicon glyphicon-plus"></span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" style="padding-top: 0;">
+					<!-- ko foreach: availableMetadatas() -->
+						<li><a href="javascript:void(0)" data-bind="text: $data, event: {click: function(){$parent.addMetadatum($data);} }">A</a></li>
+					<!-- /ko -->
+					<li class="divider" data-bind="visible: availableMetadatas().length > 0"></li>
+					<li><a href="javascript:void(0)" data-bind="event: {click: newMetadatum}">New...</a></li>
+				</ul>
+			</div>
+	</tbody>
+</table>

@@ -1,0 +1,7 @@
+{% extends 'directory.twig' %}
+{% block file %}
+	<li id="tag:{{file.id}}" class="type-series list-group-item">
+		<span class="glyphicon glyphicon-folder-open"></span>
+		<a href="/contents/{{file.id}}">{{file.name}}</a>
+	</li>
+{% endblock %}

@@ -1,0 +1,47 @@
+#dropTarget {
+	width:100%; height: 10em;
+	background-color: lightgreen;
+	margin-bottom: .5em;
+}
+#dropTargetText {
+	height: 5em;
+	width: 10em;
+	position: relative;
+	top: 50%;
+	transform: 			translateY(-50%);
+	text-align: center;
+	display: block;
+	margin-left: auto; margin-right: auto;
+}
+
+.uploadedFile{
+	position: relative;
+	margin-bottom: .5em;
+	border: 1px solid lightblue;
+}
+.progressBar{
+	background-color: lightblue;
+	position: absolute;
+	top:0; left: 0; height: 1.5em;
+	z-index: -1;
+}
+.fileName {
+	padding-right: .75em; padding-left: .05em;
+	font-weight: bold;
+}
+.editForm {
+	margin-top: .5em;
+}
+.cancelButton{
+	position: absolute;
+	right: 0.5em;
+	color: blue;
+}
+
+.error {
+	color: red;
+}
+
+option.actionAdd {
+	background-color: 
+}

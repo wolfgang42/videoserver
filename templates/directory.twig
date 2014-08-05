@@ -1,0 +1,97 @@
+{% extends 'page.twig' %}
+{% block title %}
+	{{title}}
+{% endblock %}
+{% block head %}
+<style>
+.progress-text { position: absolute; text-align: center; width: 100%; margin: 0; color: black; }
+
+.video-adminlinks {
+	float: right;
+}
+
+.page-adminlinks {
+	position: absolute;
+	top: 1em; right: 1em;
+}
+
+.fileList li:nth-child(2n) {
+	background-color: lightblue;
+	border: 1px solid lightblue;
+}
+.fileList li:nth-child(2n+1) {
+	background-color: #D6ECF2;
+	border: 1px solid #D6ECF2;
+}
+
+.fileList li:hover {
+	border: 1px solid #6699FF;
+}
+
+.fileList {
+	padding-left: 0;
+}
+.fileList li {
+	list-style: none;
+	padding-left: .5em;
+	padding-right: .5em;
+	padding-top: .1em;
+	padding-bottom:.1em;
+}
+
+/* Yellow Fade Technique--http://jsfiddle.net/csswizardry/TVqVC/ */
+:target{
+	-webkit-animation:yellow-fade 3s;
+	   -moz-animation:yellow-fade 3s;
+	        animation:yellow-fade 3s;
+}
+@-webkit-keyframes yellow-fade{
+	5%{ background-color:#ff4; }
+}
+@-moz-keyframes yellow-fade{
+	5%{ background-color:#ff4; }
+}
+@keyframes yellow-fade{
+5	%{ background-color:#ff4; }
+}
+
+nav.navbar {
+	border-radius: 0;
+}
+nav.navbar>.container {
+	margin-left: 0;
+	padding-left: 0;
+}
+nav.navbar>.container>.navbar-collapse {
+	padding-left: 0;
+}
+
+.list-group-item:hover, .list-group-item:focus {
+background-color: #f5f5f5;
+color: #555;
+text-decoration: none;
+}
+</style>
+{% endblock %}
+{% block bodytop %}
+<nav class="navbar navbar-default"><div class="container"><div class="navbar-collapse collapse">
+	<ul class="nav navbar-nav">
+	{% for tab in tabs %}
+		<li{% if tab == activetab %} class="active"{%endif%}>
+			<a href="{% if tab == 'Alphabetical' %}/library/{% else %}/contents/{{tab}}/{%endif%}">{{tab}}</a>
+		</li>
+	{% endfor %}
+	</ul>
+</div></div></nav>
+{% endblock %}
+{% block body %}
+	<ul>{% for file in listing %}
+		{% block file %}{% endblock %}
+	{% endfor %}</ul>
+	
+	{# Disk usage meter #}
+	{% set spaceused = space.total - space.free %}
+	{% set spacefrac = spaceused / space.total %}
+	<div class="progress"><div class="progress-bar" aria-valuemin="0" aria-valuemax="{{space.total}}" aria-valuenow="{{spaceused}}" style="width:{{spacefrac * 100}}%"><p class="progress-text">{{spaceused | disksi }} of {{space.total | disksi}} used ({{ (spacefrac * 100) | round }}%)</p></div></div>
+	
+{% endblock %}
