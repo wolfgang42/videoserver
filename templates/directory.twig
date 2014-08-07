@@ -85,9 +85,16 @@ text-decoration: none;
 </div></div></nav>
 {% endblock %}
 {% block body %}
-	<ul>{% for file in listing %}
-		{% block file %}{% endblock %}
-	{% endfor %}</ul>
+	{% if listing|length > 0 %}
+		<ul>{% for file in listing %}
+			{% block file %}{% endblock %}
+		{% endfor %}</ul>
+	{% else %}
+		<div class="alert alert-info" role="alert">
+			No videos have been uploaded.
+			<a href="/admin/content/upload/">Upload a video</a>
+		</div>
+	{% endif %}
 	
 	{# Disk usage meter #}
 	{% set spaceused = space.total - space.free %}
