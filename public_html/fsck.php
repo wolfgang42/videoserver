@@ -1,6 +1,13 @@
 <?php
 require_once('../includes.php');
 header("Content-type: text/plain");
+
+foreach (array('content.sqlite', 'content/', 'cache/') as $file) {
+	if (!is_writable('../'.$file)) {
+		echo "Cannot write to ".(is_dir('../'.$file)?'directory':'file').": $file\n";
+	}
+}
+
 $query = $db->prepare('SELECT id, title FROM videos WHERE is_series AND parent_series IS NOT NULL');
 $query->execute();
 foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $value) {
