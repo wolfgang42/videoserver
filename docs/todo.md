@@ -17,12 +17,11 @@
 * libraries.md
 	* Composer
 	* Twig
-	* Require.js
+	* **all** JavaScript libraries
 * files/includes.md
 * files/edit.md
 * files/upload.md
 * files/login.md
-* install.md
 
 ## Misc
 * Write a little blurb about how videos/serieses are set up
@@ -30,3 +29,4 @@
 * Use bower to manage JavaScript libraries
 * Upgrade PHP dependencies with composer
 * Several pages have embedded CSS rather than using external stylesheets
+* The uploader doesn't complain if the server returns a 500 error. (To reproduce, make `cache/upload/tmp` unwritable.)
