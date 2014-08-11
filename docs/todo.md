@@ -12,6 +12,7 @@
 * `public_html/admin/content/upload/upload_lib.php` has a note: *TODO: I don't actually recall why there are two slightly different requirements for identifiers and filenames...*
 * `public_html/static/videoeditor/` needs to be reorganized
 * `public_html/static/videoeditor/` needs to be documented
+* `public_html/fsck.php` - Make sure SQLITE_DB is in a writable folder.
 
 ## Docs
 * libraries.md
@@ -30,3 +31,5 @@
 * Upgrade PHP dependencies with composer
 * Several pages have embedded CSS rather than using external stylesheets
 * The uploader doesn't complain if the server returns a 500 error. (To reproduce, make `cache/upload/tmp` unwritable.)
+* Document CONTENT_DIR, SQLITE_DB, etc.
+* Document requirement that SQLITE_DB's folder must be writable. - http://magnatecha.com/sqlite-3-and-php-unable-to-open-database-file/

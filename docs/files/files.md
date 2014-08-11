@@ -5,8 +5,9 @@
 		* `tmp/` - Partial chunks of uploaded files
 	* `.gitignore`
 * `composer.json`, `composer.lock` - Files for [Composer](../libraries.md#Composer)
-* `content/` - Where the video files are stored
-* `content.sqlite` - Sqlite3 database where information about the videos is stored
+* `content/` - Where the video files are stored. Can be changed by modifying CONTENT_DIR
+* `content/content.sqlite` - Sqlite3 database where information about the videos is stored.
+  Can be changed by modifying SQLITE_DB.
 * `database.sql` - SQL template for the `content.sqlite` file.
 * `docs/` - Documentation
 * `inc_unauthenticated.php` - Included on every page, for functions which are needed when the user has not yet authenticated. See [includes.md](includes.md#Unauthenticated) for details.

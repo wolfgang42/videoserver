@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__file__).'/inc_unauthenticated.php';
 define('CONTENT_DIR',BASE_DIR.'/content/');
+define('SQLITE_DB', CONTENT_DIR.'/content.sqlite');
 
 session_start();
 if (!isset($_SESSION['username'])) {
@@ -35,6 +36,6 @@ function twig_directory($title, $activetab, $template, $listing) {
 	));
 }
 
-$db = new PDO("sqlite:".BASE_DIR.'/content.sqlite');
+$db = new PDO("sqlite:".SQLITE_DB);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->query("PRAGMA foreign_keys=ON;");
