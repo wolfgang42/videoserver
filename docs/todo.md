@@ -31,5 +31,7 @@
 * Upgrade PHP dependencies with composer
 * Several pages have embedded CSS rather than using external stylesheets
 * The uploader doesn't complain if the server returns a 500 error. (To reproduce, make `cache/upload/tmp` unwritable.)
+* Fix newlines
+* Remove any console.log lines
 * Document CONTENT_DIR, SQLITE_DB, etc.
 * Document requirement that SQLITE_DB's folder must be writable. - http://magnatecha.com/sqlite-3-and-php-unable-to-open-database-file/
