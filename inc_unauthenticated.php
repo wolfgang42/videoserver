@@ -1,12 +1,13 @@
 <?php
 define('BASE_DIR',dirname(__FILE__));
 require_once BASE_DIR.'/lib/autoload.php';
+require_once BASE_DIR.'/config.php';
 
 $twig = new Twig_Environment(
 	new Twig_Loader_Filesystem(BASE_DIR.'/templates'),
 	array(
 		'debug' => true, # TODO change to false in production
-		'cache' => BASE_DIR.'/cache/twig',
+		'cache' => TWIG_CACHE_DIR,
 		'strict_variables' => true
 	)
 );

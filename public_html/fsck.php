@@ -2,10 +2,20 @@
 require_once('../includes.php');
 header("Content-type: text/plain");
 
-foreach (array('content.sqlite', 'content/', 'cache/') as $file) {
-	if (!is_writable('../'.$file)) {
-		echo "Cannot write to ".(is_dir('../'.$file)?'directory':'file').": $file\n";
+foreach (array(CONTENT_DIR, UPLOAD_DIR, SQLITE_DB, TWIG_CACHE_DIR) as $file) {
+	if (!is_writable($file)) {
+		echo "Cannot write to ".(is_dir($file)?'directory':'file').": $file\n";
 	}
+}
+
+if (!is_writable(dirname(SQLITE_DB))) {
+	echo 'The folder containing the SQLite database ('.dirname(SQLITE_DB).') ';
+	echo "cannot be written to; SQLite needs access to this directory.\n";
+}
+
+if (stat(CONTENT_DIR)[0] != stat(UPLOAD_DIR)[0]) {
+	echo "CONTENT_DIR and UPLOAD_DIR are not on the same filesystem; ";
+	echo "this will result in poor performance when uploading files.\n";
 }
 
 $query = $db->prepare('SELECT id, title FROM videos WHERE is_series AND parent_series IS NOT NULL');

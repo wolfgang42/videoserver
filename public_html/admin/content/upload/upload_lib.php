@@ -1,7 +1,6 @@
 <?php
 require_once('../../../../includes.php');
-define('UPLOAD_CACHE', BASE_DIR.'/cache/upload/');
-foreach (array(UPLOAD_CACHE,UPLOAD_CACHE.'/dest',UPLOAD_CACHE.'/tmp') as $dir)
+foreach (array(UPLOAD_DIR,UPLOAD_DIR.'/dest',UPLOAD_DIR.'/tmp') as $dir)
 	if (!file_exists($dir)) mkdir($dir);
 
 // TODO: I don't actually recall why there are two slightly different requirements for identifiers and filenames...

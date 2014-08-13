@@ -26,7 +26,7 @@ if (isset($_GET['new'])) {
 			error(400, "Bad Request", "Uploaded file was not specified.");
 		require_once('../upload/upload_lib.php');
 		$fileId = upload_sanitize_filename($_POST['*uploadedFileName']);
-		rename (UPLOAD_CACHE."/dest/$fileId", CONTENT_DIR."/$fileId"); // TODO catch rename errors
+		rename (UPLOAD_DIR."/dest/$fileId", CONTENT_DIR."/$fileId"); // TODO catch rename errors
 		// Insert into database
 		$db->prepare("INSERT INTO sources (video_id, filename, type) VALUES (?, ?, 'video/mp4');")
 			-> execute(array($id, $fileId));

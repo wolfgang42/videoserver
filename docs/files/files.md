@@ -1,13 +1,15 @@
-* `cache/` - Temporary files which can be safely deleted
-	* `twig/` - Compiled [Twig](../libraries.md#Twig) templates
-	* `upload/` - Files which have been uploaded but not yet saved (see [upload.md]() for details)
+* `twig_cache/` - Compiled [Twig](../libraries.md#Twig) templates; the contents
+  of this folder will be recreated if deleted.
+  This path can be changed by modifying `TWIG_CACHE_DIR`
+* data
+	* `upload/` - Files which have been uploaded but not yet saved (see [upload.md]() for details).
+	  This path can be changed by modifying `UPLOAD_DIR`
 		* `dest/` - Completely uploaded files
 		* `tmp/` - Partial chunks of uploaded files
-	* `.gitignore`
+	* `content/` - Where the video files are stored. Can be changed by modifying `CONTENT_DIR`
+	* `content.sqlite` - Sqlite3 database where information about the videos is stored.
+	  Can be changed by modifying `SQLITE_DB`.
 * `composer.json`, `composer.lock` - Files for [Composer](../libraries.md#Composer)
-* `content/` - Where the video files are stored. Can be changed by modifying CONTENT_DIR
-* `content/content.sqlite` - Sqlite3 database where information about the videos is stored.
-  Can be changed by modifying SQLITE_DB.
 * `database.sql` - SQL template for the `content.sqlite` file.
 * `docs/` - Documentation
 * `inc_unauthenticated.php` - Included on every page, for functions which are needed when the user has not yet authenticated. See [includes.md](includes.md#Unauthenticated) for details.

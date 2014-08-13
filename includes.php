@@ -1,7 +1,5 @@
 <?php
 require_once dirname(__file__).'/inc_unauthenticated.php';
-define('CONTENT_DIR',BASE_DIR.'/content/');
-define('SQLITE_DB', CONTENT_DIR.'/content.sqlite');
 
 session_start();
 if (!isset($_SESSION['username'])) {

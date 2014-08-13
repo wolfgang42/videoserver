@@ -20,10 +20,10 @@ function upload_details($REQ) {
 		'filename'    => upload_sanitize_filename($REQ['resumableFilename']),
 	);
 	// Composite
-	$details['tmpDir'] = UPLOAD_CACHE.'tmp/';
+	$details['tmpDir'] = UPLOAD_DIR.'tmp/';
 	$details['chunkPrefix'] = $details['identifier'].'.part';
 	$details['tmpFile'] = $details['tmpDir'].$details['chunkPrefix'].$details['chunkNumber'];
-	$details['destinationFile'] = UPLOAD_CACHE.'dest/'.$details['filename'];
+	$details['destinationFile'] = UPLOAD_DIR.'dest/'.$details['filename'];
 	$details['fullFileName'] = $details['tmpDir'].$details['identifier'].".full";
 	// How many chunks have we assembled?
 	if (file_exists($details['fullFileName'])) {
@@ -78,7 +78,7 @@ echo "Chunks: ".$details['fullChunksCount'];
 			response(500, "File Rename Failed", "Couldn't move to destination file (".$details['destinationFile'].')');
 		}
 	}
-}	
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	// check if chunk has been uploaded yet
