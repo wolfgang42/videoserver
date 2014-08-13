@@ -2,6 +2,10 @@
 require_once('../includes.php');
 header("Content-type: text/plain");
 
+if (!in_array('mod_xsendfile', apache_get_modules())) {
+	echo "Apache mod_xsendfile is not enabled\n";
+}
+
 foreach (array(CONTENT_DIR, UPLOAD_DIR, SQLITE_DB, TWIG_CACHE_DIR) as $file) {
 	if (!is_writable($file)) {
 		echo "Cannot write to ".(is_dir($file)?'directory':'file').": $file\n";
