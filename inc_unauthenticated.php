@@ -6,7 +6,7 @@ require_once BASE_DIR.'/config.php';
 $twig = new Twig_Environment(
 	new Twig_Loader_Filesystem(BASE_DIR.'/templates'),
 	array(
-		'debug' => true, # TODO change to false in production
+		'debug' => false,
 		'cache' => TWIG_CACHE_DIR,
 		'strict_variables' => true
 	)
