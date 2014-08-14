@@ -37,3 +37,6 @@
 * Document requirement that SQLITE_DB's folder must be writable. - http://magnatecha.com/sqlite-3-and-php-unable-to-open-database-file/
 * Document support for authentication
 * Document latent support for multiple tracks, subtitles, etc.
+* Document authentication support
+	* Basic auth
+	* mod_auth_form
