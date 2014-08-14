@@ -1,0 +1,32 @@
+{% extends 'page.twig' %}
+{% block title %}
+	McQuaid Video Server
+{% endblock %}
+{% block body %}
+	{% if loggedout %}
+	<div role="alert" class="alert alert-success">
+		You have been logged out.
+	</div>
+	{% endif %}
+	
+	
+<div class="panel panel-primary" style="max-width: 600px;">
+	<div class="panel-heading">
+		<h2 class="panel-title">Log In</h2>
+	</div>
+	<form method="POST" class="panel-body">
+		<table>
+			<tr>
+				<td><label for="httpd_username">Username</label>:</td>
+				<td><input type="text" name="httpd_username" placeholder="mrjdoe"/></td>
+			</tr>
+			<tr>
+				<td><label for="httpd_password">Password</label>:</td>
+				<td><input type="password" name="httpd_password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/></td>
+			</tr>
+		</table>
+		<input type="submit" name="login" value="Login" class="btn btn-primary"/>
+	</form>
+</div>
+
+{% endblock %}
