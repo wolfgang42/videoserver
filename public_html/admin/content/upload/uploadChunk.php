@@ -28,11 +28,15 @@ function upload_details($REQ) {
 	// How many chunks have we assembled?
 	if (file_exists($details['fullFileName'])) {
 		$fp = fopen($details['fullFileName'], "r");
-		flock($fp, LOCK_SH);
+		if (!flock($fp, LOCK_SH)) response (500, "Couldn't acquire read lock");
 		$details['fullChunksCount'] = filesize($details['fullFileName'])/$details['chunkSize'];
 		fclose($fp);
+		flock($fp, LOCK_UN);
 	} else {
 		$details['fullChunksCount'] = 0;
+	}
+	if (!is_int($details['fullChunksCount'])) {
+		response(500, "Internal server error", ".full file corrupted (contains partial chunk, for a total of ".$details['fullChunksCount']." chunks)");
 	}
 	return $details;
 }
@@ -52,10 +56,10 @@ function handleUpload($details) {
 }
 
 function reassembleFile($details) {
-echo "Chunks: ".$details['fullChunksCount'];
+	echo "Chunks: ".$details['fullChunksCount'];
 	// Assemble additional chunks, if any
 	if (($fp = fopen($details['fullFileName'], 'a')) !== false) {
-		if (!flock($fp, LOCK_EX)) response(500, "Couldn't Acquire Lock");
+		if (!flock($fp, LOCK_EX)) response(500, "Couldn't Acquire Write Lock");
 		for ($i = $details['fullChunksCount'] + 1;; $i++) {
 			$chunkFile = $details['tmpDir'].$details['chunkPrefix'].$i;
 			if (file_exists($chunkFile)) {
@@ -68,6 +72,7 @@ echo "Chunks: ".$details['fullChunksCount'];
 			}
 		}
 		fclose($fp);
+		flock($fp, LOCK_UN);
 	} else {
 		response(500, "File Join Failed", "Couldn't open the destination file (".$details['fullFileName'].')');
 	}

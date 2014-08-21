@@ -5,7 +5,7 @@ if (isset($_GET['uniqId'])) {
 	foreach (glob(UPLOAD_DIR."tmp/$uniqId.*") as $delme) {
 		unlink($delme);
 	}
-	echo 'ok';
+	echo '{status:'ok'}';
 } else if (isset($_GET['fileId'])) {
 	$fileId = upload_sanitize_filename($_GET['fileId']);
 	unlink(UPLOAD_DIR."dest/$fileId");

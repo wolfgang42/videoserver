@@ -2,6 +2,7 @@
 {% set requirements = {
 	'lib/knockout': 'ko',
 	'lib/resumable': 'Resumable',
+	'lib/bootbox': 'bootbox',
 	'videoeditor/UploadedVideo': 'UploadedVideo',
 	'videoeditor/kobind_yellowFade': 'yellowFade',
 	'videoeditor/kobind_asyncSubmit': 'asyncSubmit',
@@ -17,6 +18,7 @@
 {% block script %}
 	var r = new Resumable({
 		target: 'uploadChunk.php',
+		simultaneousUploads: 1,
 	});
 	r.assignBrowse(document.getElementById('browseButton'));
 	r.assignDrop(document.getElementById('dropTarget'));
@@ -47,6 +49,26 @@
 	r.on('fileSuccess', function(file) {
 		console.log('success', file);
 		UploadedVideo.all[file.uniqueIdentifier].complete(true);
+	});
+	
+	r.on('fileError', function(file, error) {
+		bootbox.dialog({
+			title: "Error uploading file: "+file.fileName,
+			message: "<b>The server returned the following message:</b><br/> "+error,
+			buttons: {
+				cancel: {
+					label: "Cancel",
+					// TODO callback to cancel upload
+				},
+				retry: {
+					label: "Retry",
+					className: "btn-primary",
+					callback: function() {
+						file.retry();
+					}
+				}
+			}
+		});
 	});
 
 	ko.applyBindings(videos, document.getElementById('filesArea'));
