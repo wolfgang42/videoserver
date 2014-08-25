@@ -88,7 +88,7 @@
 					<span class="fileName" data-bind="text:name"></span>
 					<span class="progressBar" data-bind="style: {width: progress()*100+'%'}, yellowFade: complete"></span>
 					<a class="retryButton"  href="javascript:void(0)" data-bind="visible: progTimedOut, event: {click:retry}">Retry</a>
-					<a class="cancelButton" href="javascript:void(0)" data-bind="asyncSubmit:cancel,attr:{href:'cancel.php?'+((file==null)?('fileId='+id):('uniqId='+file.uniqueIdentifier))}">Cancel</a>
+					<a class="cancelButton" href="javascript:void(0)" data-bind="asyncSubmit:cancel,attr:{href:'cancel?fileName='+name+(file==null?'':('&uniqId='+file.uniqueIdentifier))}">Cancel</a>
 				</div>
 				<form method="POST" action="/admin/content/edit/save?new=video&return=ok" data-bind="asyncSubmit:function(){status('success')}">
 					<input type="hidden" name="*uploadedFileName" data-bind="value:name"/>

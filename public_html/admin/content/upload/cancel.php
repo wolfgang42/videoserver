@@ -5,12 +5,11 @@ if (isset($_GET['uniqId'])) {
 	foreach (glob(UPLOAD_DIR."tmp/$uniqId.*") as $delme) {
 		unlink($delme);
 	}
-	echo '{status:'ok'}';
-} else if (isset($_GET['fileId'])) {
-	$fileId = upload_sanitize_filename($_GET['fileId']);
-	unlink(UPLOAD_DIR."dest/$fileId");
+}
+if (isset($_GET['fileName'])) {
+	$fileName = upload_sanitize_filename($_GET['fileName']);
+	unlink(UPLOAD_DIR."dest/$fileName");
 	echo json_encode(array('status'=>'ok'));
 } else {
-	echo "No parameter specified for cancel action.";
-	var_dump($_GET);
+	error (400, "fileId not specified.");
 }
