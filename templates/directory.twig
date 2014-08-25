@@ -74,7 +74,7 @@ text-decoration: none;
 </style>
 {% endblock %}
 {% block bodytop %}
-<nav class="navbar navbar-default"><div class="container"><div class="navbar-collapse collapse">
+<nav class="navbar navbar-default"><div class="container-fluid">
 	<ul class="nav navbar-nav">
 	{% for tab in tabs %}
 		<li{% if tab == activetab %} class="active"{%endif%}>
@@ -82,7 +82,11 @@ text-decoration: none;
 		</li>
 	{% endfor %}
 	</ul>
-</div></div></nav>
+	<ul class="nav navbar-nav navbar-right">
+		<li><a href="/admin/content/upload/">Upload videos</a></li>
+		<li><a href="/auth/logout">Log out</a></li>
+	</ul>
+</div></nav>
 {% endblock %}
 {% block body %}
 	{% if listing|length > 0 %}

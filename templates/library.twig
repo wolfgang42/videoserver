@@ -1,8 +1,4 @@
 {% extends 'directory.twig' %}
-{% block bodytop %}
-	{{ parent() }}
-	<div class="page-adminlinks"><a href="/admin/content/upload">Upload Videos</a></div>
-{% endblock %}
 
 {% block file %}
 	<li id="video:{{file.id}}" class="type-{{file.type}} list-group-item">
