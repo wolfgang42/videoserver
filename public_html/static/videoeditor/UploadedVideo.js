@@ -20,6 +20,7 @@ define(function (require) {
 		this.progTimedOut = ko.observable(false);
 		var progressTimeout;
 		this.progress.subscribe(function() {
+			self.progTimedOut(false);
 			window.clearTimeout(progressTimeout);
 			if (self.progress() != 1) {
 				progressTimeout = window.setTimeout(function() {
