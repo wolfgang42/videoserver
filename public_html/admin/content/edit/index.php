@@ -38,7 +38,7 @@ if (isset($_GET['return'])) {
 	$return = 'library';
 }
 
-$twig->display('admin/content/edit.twig', array(
+$twig->display('page/admin/content/edit.twig', array(
 		'video' => $video,
 		'metadata' => $metadata,
 		'id' => $id,

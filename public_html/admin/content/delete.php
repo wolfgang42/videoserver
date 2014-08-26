@@ -48,7 +48,7 @@ if ($video['COUNT(*)'] == 1) {
 		$more_delete = array();
 	}
 	if (!isset($_POST['confirm'])) {
-		$twig->display('admin/content/delete_confirm.twig', array(
+		$twig->display('page/admin/content/delete_confirm.twig', array(
 			'id' => $id,
 			'title' => $video['title'],
 			'is_series' => $video['is_series'],

@@ -1,0 +1,32 @@
+{% block navhead %}
+<style type="text/css">
+nav.navbar {
+	border-radius: 0;
+}
+nav.navbar>.container {
+	margin-left: 0;
+	padding-left: 0;
+}
+nav.navbar>.container>.navbar-collapse {
+	padding-left: 0;
+}
+</style>
+{% endblock %}
+{% block navbody %}
+<nav class="navbar navbar-default"><div class="container-fluid">
+	<ul class="nav navbar-nav">
+	{% for tab in tabs %} {# `tabs` is defined in `includes.php` #}
+		<li{% if activetab is defined and tab == activetab %} class="active"{%endif%}>
+			<a href="{% if tab == 'Alphabetical' %}/library/{% else %}/contents/{{tab}}/{%endif%}">{{tab}}</a>
+		</li>
+	{% endfor %}
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li{% if activetab is defined and activetab == '*upload' %} class="active"{%endif%}>
+			<a href="/admin/content/upload/">Upload videos</a>
+		</li>
+		<li><a href="/auth/logout">Log out</a></li>
+	</ul>
+</div></nav>
+
+{% endblock %}

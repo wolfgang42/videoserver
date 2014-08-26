@@ -11,4 +11,4 @@ if($dh = opendir(UPLOAD_DIR."dest")){
 	}
 	closedir($dh);
 }
-$twig->display('admin/content/upload.twig', array('uploaded' => $uploaded));
+$twig->display('page/admin/content/upload.twig', array('activetab' => '*upload', 'uploaded' => $uploaded));

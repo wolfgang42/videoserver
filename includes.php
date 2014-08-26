@@ -15,21 +15,13 @@ function twig_directory($title, $activetab, $template, $listing) {
 		return sprintf('%.2f '.$symbols[$exp], ($bytes/pow(1024, floor($exp))));
 	}));
 	
-	$tabs = array("Alphabetical");
-	$query = $db->prepare("SELECT DISTINCT(key) FROM metadata ORDER BY key;");
-	$query->execute();
-	foreach ($query->fetchAll() as $tab) {
-		$tabs[] = $tab[0];
-	}
-	
-	$twig->display($template.'.twig', array(
+	$twig->display('page/'.$template.'.twig', array(
 		'title' => $title,
 		'listing' => $listing,
 		'space' => array(
 			'free'  => disk_free_space(CONTENT_DIR),
 			'total' => disk_total_space(CONTENT_DIR)
 		),
-		'tabs' => $tabs,
 		'activetab' => $activetab,
 	));
 }
@@ -37,3 +29,14 @@ function twig_directory($title, $activetab, $template, $listing) {
 $db = new PDO("sqlite:".SQLITE_DB);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->query("PRAGMA foreign_keys=ON;");
+
+call_user_func(function() {
+	global $twig, $db;
+	$tabs = array("Alphabetical");
+	$query = $db->prepare("SELECT DISTINCT(key) FROM metadata ORDER BY key;");
+	$query->execute();
+	foreach ($query->fetchAll() as $tab) {
+		$tabs[] = $tab[0];
+	}
+	$twig->addGlobal('tabs', $tabs);
+});

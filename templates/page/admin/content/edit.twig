@@ -1,11 +1,12 @@
-{% extends 'page.twig' %}
+{% extends 'abstract_page.twig' %}
+{% use 'mixin_authenticated.twig' %}
 {% set requirements = {
 	'lib/knockout': 'ko',
 	'videoeditor/Metadatum': 'Metadatum',
 	'videoeditor/Series': 'Series',
 	'videoeditor/VideoViewModel': 'VideoViewModel',
 } %}
-{% use 'requirejs.twig' with requirements %}
+{% use 'mixin_requirejs.twig' with requirements %}
 {% block title %}
 	{% if id == 'new' %}Create{% else %}Edit{% endif%}
 	{% if video.is_series %}series{% else %}video{% endif %}{% if video.title != "" %}: {{video.title}}{% endif %}
@@ -35,7 +36,7 @@
 {{ parent() }}
 <form class="editForm" id="seriesEditForm" method="POST" action="/admin/content/edit/save?{% if id == 'new' %}new=series{% else %}id={{id}}{% endif %}&return={{ return }}">
 <noscript>Error: This page will not work if you have JavaScript turned off.</noscript>
-	{% include 'videoeditor.twig' with {'video':video} %}
+	{% include 'include_videoeditor.twig' with {'video':video} %}
 	<div style="margin-top:1em;">
 		<input type="submit" value="Save" class="btn btn-primary"/>
 		{% if return == 'callback' %}

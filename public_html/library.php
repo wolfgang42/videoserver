@@ -61,7 +61,7 @@ if ($path == "") {
 			if ($row['is_series']) {
 				show_directory($row);
 			} else { // is video
-			$twig->display('video.twig', array (
+			$twig->display('page/video.twig', array (
 					'title' => $row['title'],
 					//TODO 'series' =>
 					'metadata' => fetch_by_id('metadata', $id),

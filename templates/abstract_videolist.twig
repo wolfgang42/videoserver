@@ -1,4 +1,6 @@
-{% extends 'page.twig' %}
+{% extends 'abstract_page.twig' %}
+{% use 'mixin_authenticated.twig' %}
+
 {% block title %}
 	{{title}}
 {% endblock %}
@@ -8,11 +10,6 @@
 
 .video-adminlinks {
 	float: right;
-}
-
-.page-adminlinks {
-	position: absolute;
-	top: 1em; right: 1em;
 }
 
 .fileList li:nth-child(2n) {
@@ -55,38 +52,12 @@
 5	%{ background-color:#ff4; }
 }
 
-nav.navbar {
-	border-radius: 0;
-}
-nav.navbar>.container {
-	margin-left: 0;
-	padding-left: 0;
-}
-nav.navbar>.container>.navbar-collapse {
-	padding-left: 0;
-}
-
 .list-group-item:hover, .list-group-item:focus {
 background-color: #f5f5f5;
 color: #555;
 text-decoration: none;
 }
 </style>
-{% endblock %}
-{% block bodytop %}
-<nav class="navbar navbar-default"><div class="container-fluid">
-	<ul class="nav navbar-nav">
-	{% for tab in tabs %}
-		<li{% if tab == activetab %} class="active"{%endif%}>
-			<a href="{% if tab == 'Alphabetical' %}/library/{% else %}/contents/{{tab}}/{%endif%}">{{tab}}</a>
-		</li>
-	{% endfor %}
-	</ul>
-	<ul class="nav navbar-nav navbar-right">
-		<li><a href="/admin/content/upload/">Upload videos</a></li>
-		<li><a href="/auth/logout">Log out</a></li>
-	</ul>
-</div></nav>
 {% endblock %}
 {% block body %}
 	{% if listing|length > 0 %}

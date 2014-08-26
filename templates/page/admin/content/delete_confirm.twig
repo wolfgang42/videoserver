@@ -1,4 +1,5 @@
-{% extends 'page.twig' %}
+{% extends 'abstract_page.twig' %}
+{% use 'mixin_authenticated.twig' %}
 {% block title %}
 	Delete {% if is_series %}series{% else %}video{% endif %}?
 {% endblock %}
