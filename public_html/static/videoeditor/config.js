@@ -26,6 +26,7 @@ requirejs.config({
 		'lib/bootbox': 'lib/bootbox.min',
 		'lib/typeahead': 'lib/bootstrap3-typeahead.min',
 		'completions': '/completions',
+		'text': 'lib/requirejs_text',
 	},
 	baseUrl: "/static/"
 });

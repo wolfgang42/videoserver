@@ -22,40 +22,44 @@ define(function (require) {
 	}
 	
 	function addNewSeries(video) {
-		bootbox.dialog({
-			title: "Create Series",
-			message: '<div class="splashoverlay" id="newseries-splashoverlay"></div>'+
-					'<form id="newseries-dialog" data-bind="asyncSubmit:newSeriesDialogCallback" method="POST" action="/admin/content/edit/save?new=series&return=ok">'+
-					document.getElementById('serieseditor-content').innerHTML+
-					'</form>',
-			buttons: {
-				cancel: {
-					label: "Cancel",
-					className: 'newseries-btn-cancel btn btn-default',
-					// No callback needed; just close the dialog.
+		require([
+				'text!/admin/content/template_serieseditor',
+				'videoeditor/kobind_asyncSubmit',
+			], function(serieseditor_html, asyncSubmit) {
+			bootbox.dialog({
+				title: "Create Series",
+				message: '<div class="splashoverlay" id="newseries-splashoverlay"></div>'+
+						'<form id="newseries-dialog" data-bind="asyncSubmit:newSeriesDialogCallback" method="POST" action="/admin/content/edit/save?new=series&return=ok">'+
+						serieseditor_html+'</form>',
+				buttons: {
+					cancel: {
+						label: "Cancel",
+						className: 'newseries-btn-cancel btn btn-default',
+						// No callback needed; just close the dialog.
+					},
+					save: {
+						label: "Save",
+						className: 'newseries-btn-save btn btn-primary',
+						callback: function() {
+							document.getElementById('newseries-dialog').submit();
+							return false;
+						}
+					},
 				},
-				save: {
-					label: "Save",
-					className: 'newseries-btn-save btn btn-primary',
-					callback: function() {
-						document.getElementById('newseries-dialog').submit();
-						return false;
-					}
-				},
-			},
-		});
-		$('.newseries-btn-save').attr('disabled');
-		require(['videoeditor/VideoViewModel'], function (VideoViewModel) {
-			var series = new VideoViewModel();
-			series.newSeriesDialogCallback = function(details) {
-				$('.newseries-btn-cancel').click();
-				var seriesName = document.getElementById('newseries-dialog')['*title'].value;
-				var newSeries = new Series(seriesName, details.id);
-				seriesList.push(newSeries);
-				video.series(newSeries);
-			}
-			ko.applyBindings(series,document.getElementById('newseries-dialog'));
-			$(document.getElementById("newseries-splashoverlay")).fadeOut(250);
+			});
+			$('.newseries-btn-save').attr('disabled');
+			require(['videoeditor/VideoViewModel'], function (VideoViewModel) {
+				var series = new VideoViewModel();
+				series.newSeriesDialogCallback = function(details) {
+					$('.newseries-btn-cancel').click();
+					var seriesName = document.getElementById('newseries-dialog')['*title'].value;
+					var newSeries = new Series(seriesName, details.id);
+					seriesList.push(newSeries);
+					video.series(newSeries);
+				}
+				ko.applyBindings(series,document.getElementById('newseries-dialog'));
+				$(document.getElementById("newseries-splashoverlay")).fadeOut(250);
+			});
 		});
 	}
 	
