@@ -35,7 +35,4 @@
 * Remove any console.log lines
 * Document CONTENT_DIR, SQLITE_DB, etc.
 * Document requirement that SQLITE_DB's folder must be writable. - http://magnatecha.com/sqlite-3-and-php-unable-to-open-database-file/
-* Document support for authentication
 * Document latent support for multiple tracks, subtitles, etc.
-* Document authentication support
-	* [auth_form](auth_form.md)
