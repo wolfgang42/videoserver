@@ -25,3 +25,6 @@ define('TWIG_CACHE_DIR', BASE_DIR.'/twig_cache/');
 // Enable this if you are using basic authentication;
 // see docs/auth_basic.md for details.
 define('AUTH_BASIC', false);
+
+// The username to use as a placeholder on the login form.
+define('AUTH_FORM_EXAMPLEUSER', 'mrjdoe');
