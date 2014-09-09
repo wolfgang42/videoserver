@@ -17,7 +17,7 @@
 	});
 </script>
 <style>
-.splashoverlay {
+.overlay {
   background-color: white;
   height: 100%;
   left: 0;
@@ -25,6 +25,8 @@
   top: 0;
   width: 100%;
   z-index: 5000;
+}
+.splashoverlay {
   background-image: url(/static/large_preloader.gif);
   background-position: center;
   background-repeat: no-repeat;
@@ -32,6 +34,8 @@
 </style>
 {% endblock %}
 {% block body %}
-<div class="splashoverlay" id="splashoverlay"></div>
-<noscript>Error: This page will not work if you have JavaScript turned off.</noscript>
+<div class="overlay splashoverlay" id="splashoverlay"></div>
+<noscript><div class="overlay">
+<div class="alert alert-danger"><strong>JavaScript must be enabled</strong> to use this page.</div>
+</div></noscript>
 {% endblock %}
