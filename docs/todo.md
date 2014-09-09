@@ -2,7 +2,6 @@
 * `Readme.md` - Write a little blurb with information about the program.
 * `inc_unauthenticated.php` - Update twig to *not* use debug mode
 * `inc_unauthenticated.php` - update `redirect()` to check for permanence, etc.
-* `templates/abstract_videolist.twig` has a lot of CSS that isn't used any more.
 * `templates/page/contents.twig` and `templates/library.twig` are remarkably similar. Do we actually need both of them?
 * `templates/mixin_requirejs.twig` - Display an error message if JavaScript is disabled.
 * `public_html/auth/login.php` - Currently only supports mod_ldap
