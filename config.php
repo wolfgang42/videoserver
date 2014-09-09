@@ -21,3 +21,7 @@ define('SQLITE_DB', DATA_DIR.'/content.sqlite');
 // You can set this to false to disable caching altogether,
 // however, this makes things slower and provides no advantage.
 define('TWIG_CACHE_DIR', BASE_DIR.'/twig_cache/');
+
+// Enable this if you are using basic authentication;
+// see docs/auth_basic.md for details.
+define('AUTH_BASIC', false);

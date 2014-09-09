@@ -1,9 +1,11 @@
 <?php
 require_once dirname(__file__).'/inc_unauthenticated.php';
 
-session_start();
-if (!isset($_SESSION['username'])) {
-	redirect('/auth/login?redirect='.urlencode($_SERVER['REQUEST_URI']));
+if (AUTH_BASIC) {
+	session_start();
+	if (!isset($_SESSION['username'])) {
+		redirect('/auth/login?redirect='.urlencode($_SERVER['REQUEST_URI']));
+	}
 }
 
 function twig_directory($title, $activetab, $template, $listing) {
