@@ -38,5 +38,4 @@
 * Document support for authentication
 * Document latent support for multiple tracks, subtitles, etc.
 * Document authentication support
-	* Basic auth (docs/basic_auth.md)
-	* mod_auth_form
+	* [auth_form](auth_form.md)
