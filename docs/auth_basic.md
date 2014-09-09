@@ -2,6 +2,7 @@ Many browsers use a separate plug-in to display video and don't pass
 credentials to it. This means that videos protected by basic auth cannot be played.
 As a workaround, videoserver provides support for PHP session-based
 verification of a basic auth login. (`/admin` does not have this problem, and can be protected with basic auth directly.)
+
 1. **User visits http://video.example.com/library/1.**
 	Because they have not yet logged in, they have no session and are
 2. **redirected to http://video.example.com/auth/login.**
@@ -16,6 +17,6 @@ verification of a basic auth login. (`/admin` does not have this problem, and ca
 2. Set `AUTH_BASIC` to `true` in `config.php`.
 
 # Related discussions
-* [safari 6.0.1 cannot load video or audio that requires basic authentication](https://discussions.apple.com/message/19820341]
-* [Safari 5.1 HTML5 HTTP basic access authentication issue video does not load](https://discussions.apple.com/message/16530646]
+* [safari 6.0.1 cannot load video or audio that requires basic authentication](https://discussions.apple.com/message/19820341)
+* [Safari 5.1 HTML5 HTTP basic access authentication issue video does not load](https://discussions.apple.com/message/16530646)
 * [Problem with video on mobile when there's basic authentication](http://jalbum.net/forum/thread.jspa?threadID=45172)
