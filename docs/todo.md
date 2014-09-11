@@ -21,10 +21,6 @@
 	* `templates/page/video.twig`:	{# <!-- TODO metadata --> #}
 
 ## Docs
-* libraries.md
-	* Composer
-	* Twig
-	* **all** JavaScript libraries
 * files/includes.md
 * files/edit.md
 * files/upload.md
