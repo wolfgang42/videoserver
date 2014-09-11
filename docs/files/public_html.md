@@ -11,6 +11,9 @@
 			* `uploadChunk.php` - Receives chunks from [Resumable.js](../libraries.md#Resumablejs) and combines them into a complete file.
 		* `delete.php` - Deletes videos (confirming beforehand).
 		  If a series is being deleted, it recursively deletes the contained videos.
+		* `template_serieseditor.php` - renders `templates/include_videoeditor.php`,
+		to be inserted into a dialog box by `addNewSeries()``
+		(in`public_html/static/videoeditor/SeriesCompletions.js`).
 * `auth/`
 	* `login.php` - Handles logins using mod_ldap (see [login.md]())
 * `completions.js.php` - Returns data to be used in autocompleting for the editor.
